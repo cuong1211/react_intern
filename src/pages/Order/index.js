@@ -1,10 +1,13 @@
 import axios from "axios";
 import React from "react";
+import Modal from "~/components/Layout/components/Modal";
+import useModal from "~/components/Layout/components/Modal/useModal";
 
 function Order() {
     const [orders, setOrders] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
+    const { isShowing, toggle } = useModal();
     const option = {
         method: "GET",
         url: "https://intern_project.minhhoangjsc.io/api/orders",
@@ -34,24 +37,24 @@ function Order() {
             <td className="text-center text-break">{order.description}</td>
             <td className="text-bold text-center">
                 {order.product.map((product) => (
-                    <>
+                    <React.Fragment key={product.id}>
                         <div>
                             {product.name}
                         </div>
                         <hr />
 
-                    </>
+                    </React.Fragment>
                 ))}
             </td>
 
             <td className="text-center">
                 {order.product.map((product) => (
-                    <>
+                    <React.Fragment key={product.id}>
                         <div>
                             {product.quantity}
                         </div>
                         <hr />
-                    </>
+                    </React.Fragment>
                 ))}
             </td>
             <td className="text-center">{order.price}</td>
@@ -154,7 +157,8 @@ function Order() {
                                     </div>
 
                                 </div> */}
-                                <button type="button" className="btn btn-primary btn-add" >Add Order</button>
+                                <button type="button" className="btn btn-primary btn-add" onClick={toggle}>Add Order</button>
+
                             </div>
                             <div className="d-flex justify-content-end align-items-center d-none"
                                 data-kt-customer-table-toolbar="selected">
@@ -187,7 +191,12 @@ function Order() {
                 </div>
             </div>
         </div>
+        <Modal
+            isShowing={isShowing}
+            hide={toggle}
+        />
     </div>
+
     return order;
 }
 
