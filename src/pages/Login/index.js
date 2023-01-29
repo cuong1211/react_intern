@@ -8,13 +8,13 @@ async function loginUser(credentials) {
         url: "https://intern_project.minhhoangjsc.io/api/login",
         method: "POST",
         headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             "Content-Type": "application/json",
         },
-        // withCredentials: true,
+        //
         body: JSON.stringify(credentials),
     };
-    return axios.request(options)
+    return axios.request(options,{ withCredentials: true, credentials: 'include' })
     .then(data => {
         console.log(data);
     }
@@ -26,12 +26,13 @@ async function loginUser(credentials) {
     // const response = await fetch("https://intern_project.minhhoangjsc.io/api/login", {
     //     method: "POST",
     //     headers: {
-    //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    //         // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     //         "Content-Type": "application/json",
     //     },
     //     body: JSON.stringify(credentials),
     // });
     // return response.json();
+
 
 }
 
@@ -53,7 +54,7 @@ function Login({setToken}) {
             <h1>Please Log In</h1>
             <form onSubmit={handleSubmit}>
                 {/* create csrf token  */}
-                <input type="hidden" name="_csrf" value="token"/>
+                
                 <div>
                     <label>
                         <p>Email</p>

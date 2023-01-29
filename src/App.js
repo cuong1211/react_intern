@@ -5,10 +5,10 @@ import { DefaultLayout } from "~/components/Layout";
 import Login from "./pages/Login";
 function App() {
 
-  const [token, setToken] = useState();
-  if (!token) {
-    return <Login setToken={setToken} />
-  }
+  // const [token, setToken] = useState();
+  // if (!token) {
+  //   return <Login setToken={setToken} />
+  // }
   return (
     <Router>
       <div className="App">
