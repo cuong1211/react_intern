@@ -3,30 +3,26 @@ import propTypes from "prop-types";
 import axios from "axios";
 
 
-async function loginUser(credentials) {
+async function loginUser(data) {
     const options = {
-        url: "https://intern_project.minhhoangjsc.io/api/login",
+        url: "http://127.0.0.1:8000/api/login",
         method: "POST",
-        headers: {
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            "Content-Type": "application/json",
-        },
-        //
-        body: JSON.stringify(credentials),
+        data: data,
     };
-    return axios.request(options,{ withCredentials: true, credentials: 'include' })
-    .then(data => {
-        console.log(data);
-    }
-    )
-    .catch(err => {
-        console.log(err);
-    }
-    )
+    return axios.request(options)
+        .then(response => {
+            console.log(response.data);
+            return response.data.access_token;
+        }
+        )
+        .catch(err => {
+            console.log(err);
+        }
+        )
     // const response = await fetch("https://intern_project.minhhoangjsc.io/api/login", {
     //     method: "POST",
     //     headers: {
-    //         // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     //         "Content-Type": "application/json",
     //     },
     //     body: JSON.stringify(credentials),
@@ -37,8 +33,8 @@ async function loginUser(credentials) {
 }
 
 
-function Login({setToken}) {
-    
+function Login({ setToken }) {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = async e => {
@@ -46,7 +42,8 @@ function Login({setToken}) {
         const token = await loginUser({
             email,
             password
-        });
+        })
+        // console.log(token);
         setToken(token);
     }
     const login = (
@@ -54,18 +51,18 @@ function Login({setToken}) {
             <h1>Please Log In</h1>
             <form onSubmit={handleSubmit}>
                 {/* create csrf token  */}
-                
+
                 <div>
                     <label>
                         <p>Email</p>
-                        <input type="text" onChange={e=> setEmail(e.target.value)}/>
+                        <input type="text" onChange={e => setEmail(e.target.value)} />
                     </label>
                 </div>
                 <div>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e=>setPassword(e.target.value)}/>
-                </label>
+                    <label>
+                        <p>Password</p>
+                        <input type="password" onChange={e => setPassword(e.target.value)} />
+                    </label>
                 </div>
                 <div>
                     <button type="submit">Submit</button>

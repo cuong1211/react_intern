@@ -2,13 +2,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicRoutes } from '~/routes';
 import { useState } from "react";
 import { DefaultLayout } from "~/components/Layout";
+import useToken from "~/components/Layout/components/Api/useToken";
 import Login from "./pages/Login";
-function App() {
+import Modal from "~/components/Layout/components/Modal";
+import useModal from "~/components/Layout/components/Modal/useModal";
 
-  // const [token, setToken] = useState();
-  // if (!token) {
-  //   return <Login setToken={setToken} />
-  // }
+function App() {
+  const { token, setToken } = useToken();
+  const { isShowing, toggle } = useModal();
+  if (!token) {
+    return <Login setToken={setToken} />
+  }
   return (
     <Router>
       <div className="App">
@@ -24,6 +28,11 @@ function App() {
               <Route key={route.path} path={route.path} element={
                 <Layout>
                   {route.element}
+                  <button onClick={toggle}>Open Modal</button>
+                  <Modal
+                    isShowing={isShowing}
+                    hide={toggle}
+                  />
                 </Layout>
               } />
             );

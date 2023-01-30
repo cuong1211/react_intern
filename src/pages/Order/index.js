@@ -1,19 +1,19 @@
 import axios from "axios";
 import React from "react";
-import Modal from "~/components/Layout/components/Modal";
-import useModal from "~/components/Layout/components/Modal/useModal";
+import useToken from "~/components/Layout/components/Api/useToken";
+
 
 function Order() {
     const [orders, setOrders] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
-    const { isShowing, toggle } = useModal();
+    console.log("Bearer " + useToken().token);
     const option = {
         method: "GET",
-        url: "https://intern_project.minhhoangjsc.io/api/orders",
+        url: "http://127.0.0.1:8000/api/orders",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 16|SZJJ6w16ecMQj0vzciN6E41Dr2vuVXPCE4gch4bX",
+            "Authorization": "Bearer " + useToken().token,
         },
     };
     React.useEffect(() => {
@@ -157,7 +157,7 @@ function Order() {
                                     </div>
 
                                 </div> */}
-                                <button type="button" className="btn btn-primary btn-add" onClick={toggle}>Add Order</button>
+                                <button type="button" className="btn btn-primary btn-add">Add Order</button>
 
                             </div>
                             <div className="d-flex justify-content-end align-items-center d-none"
@@ -191,10 +191,7 @@ function Order() {
                 </div>
             </div>
         </div>
-        <Modal
-            isShowing={isShowing}
-            hide={toggle}
-        />
+        
     </div>
 
     return order;
