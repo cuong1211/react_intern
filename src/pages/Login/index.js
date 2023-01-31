@@ -5,7 +5,7 @@ import axios from "axios";
 
 async function loginUser(data) {
     const options = {
-        url: "http://127.0.0.1:8000/api/login",
+        url: "https://intern_project.minhhoangjsc.io/api/login",
         method: "POST",
         data: data,
     };
@@ -19,17 +19,6 @@ async function loginUser(data) {
             console.log(err);
         }
         )
-    // const response = await fetch("https://intern_project.minhhoangjsc.io/api/login", {
-    //     method: "POST",
-    //     headers: {
-    //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(credentials),
-    // });
-    // return response.json();
-
-
 }
 
 

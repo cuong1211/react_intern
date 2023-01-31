@@ -1,25 +1,29 @@
 import axios from "axios";
-import React from "react";
+import { useState, useEffect, Fragment } from "react";
 import useToken from "~/components/Layout/components/Api/useToken";
+import Modal from "~/components/Layout/components/Modal";
 
 
 function Order() {
-    const [orders, setOrders] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
-    console.log("Bearer " + useToken().token);
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [openmodal, setOpenmodal] = useState(false);
+
+    const openmodalHandler = () => {
+        setOpenmodal(true);
+    };
     const option = {
         method: "GET",
-        url: "http://127.0.0.1:8000/api/orders",
+        url: "https://intern_project.minhhoangjsc.io/api/orders",
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + useToken().token,
         },
     };
-    React.useEffect(() => {
+    useEffect(() => {
         axios.request(option)
             .then((response) => {
-                console.log(response.data.data);
                 setOrders(response.data.data);
                 setLoading(false);
             })
@@ -37,30 +41,30 @@ function Order() {
             <td className="text-center text-break">{order.description}</td>
             <td className="text-bold text-center">
                 {order.product.map((product) => (
-                    <React.Fragment key={product.id}>
+                    <Fragment key={product.id}>
                         <div>
                             {product.name}
                         </div>
                         <hr />
 
-                    </React.Fragment>
+                    </Fragment>
                 ))}
             </td>
 
             <td className="text-center">
                 {order.product.map((product) => (
-                    <React.Fragment key={product.id}>
+                    <Fragment key={product.id}>
                         <div>
                             {product.quantity}
                         </div>
                         <hr />
-                    </React.Fragment>
+                    </Fragment>
                 ))}
             </td>
             <td className="text-center">{order.price}</td>
         </tr>
     ));
-    const order = <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
+    const order = (<div className="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div className="post d-flex flex-column-fluid" id="kt_post">
             <div id="kt_content_container" className="container-xxl">
                 <div className="card">
@@ -157,7 +161,7 @@ function Order() {
                                     </div>
 
                                 </div> */}
-                                <button type="button" className="btn btn-primary btn-add">Add Order</button>
+                                <button type="button" className="btn btn-primary btn-add" onClick={openmodalHandler}>Add Order</button>
 
                             </div>
                             <div className="d-flex justify-content-end align-items-center d-none"
@@ -191,8 +195,9 @@ function Order() {
                 </div>
             </div>
         </div>
-        
+        {openmodal && <Modal closeModal={setOpenmodal}/>}
     </div>
+    )
 
     return order;
 }
