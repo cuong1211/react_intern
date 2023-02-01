@@ -9,9 +9,19 @@ function Order() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [openmodal, setOpenmodal] = useState(false);
-
-    const openmodalHandler = () => {
+    const [dropdown, setDropdown] = useState(false);
+    const [title, setTitle] = useState("");
+    
+    const openModalAddHandler = () => {
+        setTitle("Add Order");
         setOpenmodal(true);
+    };
+    const openModalEditHandler = () => {
+        setTitle("Edit Order");
+        setOpenmodal(true);
+    };
+    const dropdownHandler = () => {
+        setDropdown(!dropdown);
     };
     const option = {
         method: "GET",
@@ -62,7 +72,37 @@ function Order() {
                 ))}
             </td>
             <td className="text-center">{order.price}</td>
-        </tr>
+            <td className="text-end">
+                <a className="btn btn-light btn-active-light-primary btn-sm" onClick={dropdownHandler}>
+                    Actions
+                    <span className="svg-icon svg-icon-5 m-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                <path d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z" fill="#000000" fillRule="nonzero" transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)"></path>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+                {
+                    dropdown &&
+                        (
+                            <div className="">
+                                <div className="menu-item px-3" onClick={openModalEditHandler}>
+                                    <span className="menu-link px-3 btn-edit">
+                                        Edit
+                                    </span>
+                                </div>
+                                <div className="menu-item px-3">
+                                    <span className="menu-link px-3 btn-delete">
+                                        Delete
+                                    </span>
+                                </div>
+                            </div>
+                        )
+                }
+            </td>
+        </tr >
     ));
     const order = (<div className="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -87,81 +127,8 @@ function Order() {
                         </div>
                         <div className="card-toolbar">
                             <div className="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                {/* <button type="button" className="btn btn-light-primary me-3" data-kt-menu-trigger="click"
-                                    data-kt-menu-placement="bottom-end">
-
-                                    <span className="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path
-                                                d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    Filter
-                                </button>
-                                <div className="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true"
-                                    id="kt-toolbar-filter">
-                                    <div className="px-7 py-5">
-                                        <div className="fs-4 text-dark fw-bolder">Filter Options</div>
-                                    </div>
-                                    <div className="separator border-gray-200"></div>
-                                    <div className="px-7 py-5">
-                                        <div className="mb-10">
-                                            <label className="form-label fs-5 fw-bold mb-3">Month:</label>
-                                            <select className="form-select form-select-solid fw-bolder" data-kt-select2="true"
-                                                data-placeholder="Select option" data-allow-clear="true"
-                                                data-kt-customer-table-filter="month"
-                                                data-dropdown-parent="#kt-toolbar-filter">
-                                                <option></option>
-                                                <option value="aug">August</option>
-                                                <option value="sep">September</option>
-                                                <option value="oct">October</option>
-                                                <option value="nov">November</option>
-                                                <option value="dec">December</option>
-                                            </select>
-                                        </div>
-                                        <div className="mb-10">
-                                            <label className="form-label fs-5 fw-bold mb-3">Payment Type:</label>
-                                            <div className="d-flex flex-column flex-wrap fw-bold"
-                                                data-kt-customer-table-filter="payment_type">
-                                                <label
-                                                    className="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                                    <input className="form-check-input" type="radio" name="payment_type"
-                                                        value="all" checked="checked" />
-                                                    <span className="form-check-label text-gray-600">All</span>
-                                                </label>
-                                                <label
-                                                    className="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                                    <input className="form-check-input" type="radio" name="payment_type"
-                                                        value="visa" />
-                                                    <span className="form-check-label text-gray-600">Visa</span>
-                                                </label>
-                                                <label
-                                                    className="form-check form-check-sm form-check-custom form-check-solid mb-3">
-                                                    <input className="form-check-input" type="radio" name="payment_type"
-                                                        value="mastercard" />
-                                                    <span className="form-check-label text-gray-600">Mastercard</span>
-                                                </label>
-                                                <label className="form-check form-check-sm form-check-custom form-check-solid">
-                                                    <input className="form-check-input" type="radio" name="payment_type"
-                                                        value="american_express" />
-                                                    <span className="form-check-label text-gray-600">American Express</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end">
-                                            <button type="reset" className="btn btn-light btn-active-light-primary me-2"
-                                                data-kt-menu-dismiss="true"
-                                                data-kt-customer-table-filter="reset">Reset</button>
-                                            <button type="submit" className="btn btn-primary" data-kt-menu-dismiss="true"
-                                                data-kt-customer-table-filter="filter">Apply</button>
-                                        </div>
-
-                                    </div>
-
-                                </div> */}
-                                <button type="button" className="btn btn-primary btn-add" onClick={openmodalHandler}>Add Order</button>
+                            
+                                <button type="button" className="btn btn-primary btn-add" onClick={openModalAddHandler}>Add Order</button>
 
                             </div>
                             <div className="d-flex justify-content-end align-items-center d-none"
@@ -195,7 +162,7 @@ function Order() {
                 </div>
             </div>
         </div>
-        {openmodal && <Modal closeModal={setOpenmodal}/>}
+        {openmodal && <Modal title={title} closeModal={setOpenmodal} />}
     </div>
     )
 
