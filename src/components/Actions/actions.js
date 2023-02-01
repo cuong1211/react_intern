@@ -1,0 +1,56 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+
+const ActionsDropdown = ({ onDelete, id, onDataChange  }) => {
+  const { t } = useTranslation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const handleDelete = async () => {
+    try {
+
+        var qs = require('qs');
+        var data = qs.stringify({
+        });
+        var config = {
+          method: 'delete',
+          url: `http://127.0.0.1:8000/api/users/${id}`,
+          headers: {
+            'Authorization': 'Bearer 10|j8slYZiQ47tPdK5J6doZtICu2RT11uQ0jkeMbU1C'
+          },
+          data : data
+        };
+
+        axios.request(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <td className="text-end">
+      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+        <DropdownToggle className="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+          {t("Actions")}
+        </DropdownToggle>
+        <DropdownMenu className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+          <DropdownItem tag={Link} to="/view">
+            {t("View")}
+          </DropdownItem>
+          <DropdownItem onClick={handleDelete}>{t("Delete")}</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </td>
+  );
+};
+
+export default ActionsDropdown;

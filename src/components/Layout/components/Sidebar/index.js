@@ -1112,7 +1112,7 @@ function SideBar() {
                             </Link>
                         </div>
                         <div className="menu-item">
-                            <Link to={'/order'} className="menu-link ">
+                            <Link to={'/user'} className="menu-link ">
                                 <span className="menu-icon">
                                     <span className="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -1130,7 +1130,7 @@ function SideBar() {
                                     </span>
 
                                 </span>
-                                <span className="menu-title">Order</span>
+                                <span className="menu-title">User</span>
                             </Link>
                         </div>
                     </div>

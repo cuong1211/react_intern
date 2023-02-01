@@ -1,63 +1,49 @@
 import axios from "axios";
 import React from "react";
+import ActionsDropdown from "~/components/Actions/actions.js"
 
-function Order() {
-    const [orders, setOrders] = React.useState([]);
+
+function User({ dataId }) {
+    const [users, setUsers] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
     const option = {
         method: "GET",
-        url: "https://intern_project.minhhoangjsc.io/api/orders",
+        url: "http://127.0.0.1:8000/api/users",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 16|SZJJ6w16ecMQj0vzciN6E41Dr2vuVXPCE4gch4bX",
+            "Authorization": "Bearer 10|j8slYZiQ47tPdK5J6doZtICu2RT11uQ0jkeMbU1C",
         },
     };
     React.useEffect(() => {
-        axios.request(option)
+       const data = () => {
+       axios.request(option)
             .then((response) => {
-                console.log(response.data.data);
-                setOrders(response.data.data);
+                console.log('ok',response.data.data);
+                setUsers(response.data.data);
                 setLoading(false);
+
             })
             .catch((error) => {
                 setError(error);
                 setLoading(false);
             });
+       }
+         data();
     }, []);
     if (loading) return "Loading...";
     if (error) return "Error!";
-    const data = orders.map((order) => (
-        <tr key={order.id}>
-            <td className="text-center">{order.id}</td>
-            <td className="text-center">{order.name}</td>
-            <td className="text-center text-break">{order.description}</td>
-            <td className="text-bold text-center">
-                {order.product.map((product) => (
-                    <>
-                        <div>
-                            {product.name}
-                        </div>
-                        <hr />
-
-                    </>
-                ))}
-            </td>
-
-            <td className="text-center">
-                {order.product.map((product) => (
-                    <>
-                        <div>
-                            {product.quantity}
-                        </div>
-                        <hr />
-                    </>
-                ))}
-            </td>
-            <td className="text-center">{order.price}</td>
+    const data = users.map((user) => (
+        <tr key={user.id}>
+            <td className="text-center">{user.id}</td>
+            <td className="text-center">{user.name}</td>
+            <td className="text-center text-break">{user.email}</td>
+<td>
+  <ActionsDropdown id= {user.id} />
+</td>
         </tr>
     ));
-    const order = <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
+    const user = <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div className="post d-flex flex-column-fluid" id="kt_post">
             <div id="kt_content_container" className="container-xxl">
                 <div className="card">
@@ -172,10 +158,8 @@ function Order() {
                                 <tr className="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th className="m-w-125px text-center">STT</th>
                                     <th className="m-w-125px text-center">Name</th>
-                                    <th className="max-w-125px text-center">Description</th>
-                                    <th className="m-w-125px text-center">Product</th>
-                                    <th className="m-w-125px text-center">Quantity</th>
-                                    <th className="m-w-125px text-center">Price</th>
+                                    <th className="max-w-125px text-center">Email</th>
+
                                     <th className="text-end m-w-70px text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -188,7 +172,7 @@ function Order() {
             </div>
         </div>
     </div>
-    return order;
+    return user;
 }
 
-export default Order;
+export default User;
