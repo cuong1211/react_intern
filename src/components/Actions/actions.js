@@ -6,6 +6,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap
 
 const ActionsDropdown = ({ onDelete, id, onDataChange  }) => {
   const { t } = useTranslation();
+  const [data, setData] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
   const handleDelete = async () => {
@@ -16,13 +17,12 @@ const ActionsDropdown = ({ onDelete, id, onDataChange  }) => {
         });
         var config = {
           method: 'delete',
-          url: `http://127.0.0.1:8000/api/users/${id}`,
+          url: `https://intern_project.minhhoangjsc.io/api/users/${id}`,
           headers: {
-            'Authorization': 'Bearer 10|j8slYZiQ47tPdK5J6doZtICu2RT11uQ0jkeMbU1C'
+            'Authorization': 'Bearer 53|C7G7awqZOjVY0uE7mZo6Qn713L6ciLAVxGZclQAJ'
           },
           data : data
         };
-
         axios.request(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));

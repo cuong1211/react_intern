@@ -9,10 +9,10 @@ function User({ dataId }) {
     const [error, setError] = React.useState(null);
     const option = {
         method: "GET",
-        url: "http://127.0.0.1:8000/api/users",
+        url: "https://intern_project.minhhoangjsc.io/api/users",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 10|j8slYZiQ47tPdK5J6doZtICu2RT11uQ0jkeMbU1C",
+            "Authorization": "Bearer 53|C7G7awqZOjVY0uE7mZo6Qn713L6ciLAVxGZclQAJ",
         },
     };
     React.useEffect(() => {
