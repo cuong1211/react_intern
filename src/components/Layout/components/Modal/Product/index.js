@@ -1,4 +1,4 @@
-function Product({ index, removeProductHandle }) {
+function Product({ index, removeProductHandle, setNameProduct, setPriceProduct, setSizeProduct, setQuantityProduct }) {
     return (
         < tr className="odd">
             <input type="hidden" name="id_product[]" />
@@ -6,16 +6,19 @@ function Product({ index, removeProductHandle }) {
                 {/* <p>{index}</p> */}
                 <input type="text"
                     className="form-control form-control-solid"
+                    onChange={(e) => setNameProduct(e.target.value)}
                 />
             </td>
             <td>
                 <input type="text"
                     className="form-control form-control-solid"
+                    onChange={(e) => setPriceProduct(e.target.value)}
                 />
             </td>
             <td>
                 <select
                     className="form-control form-control-lg form-control-solid"
+                    onChange={(e) => setSizeProduct(e.target.value)}
                 >
                     <option value="0">Choose</option>
                     <option value="S">S</option>
@@ -26,7 +29,10 @@ function Product({ index, removeProductHandle }) {
                 </select>
             </td>
             <td>
-                <input type="number" className="form-control form-control-lg form-control-solid" />
+                <input type="number"
+                    className="form-control form-control-lg form-control-solid"
+                    onChange={(e) => setQuantityProduct(e.target.value)}
+                />
             </td>
             <td className="text-end">
                 <button type="button"

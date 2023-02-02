@@ -23,7 +23,6 @@ async function loginUser(data) {
 
 
 function Login({ setToken }) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = async e => {
@@ -39,8 +38,6 @@ function Login({ setToken }) {
         <div className="login-wrapper">
             <h1>Please Log In</h1>
             <form onSubmit={handleSubmit}>
-                {/* create csrf token  */}
-
                 <div>
                     <label>
                         <p>Email</p>
