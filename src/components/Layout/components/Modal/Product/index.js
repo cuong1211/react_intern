@@ -1,24 +1,61 @@
-function Product({ index, removeProductHandle, setNameProduct, setPriceProduct, setSizeProduct, setQuantityProduct }) {
+import React, { useState } from 'react';
+
+function Product({ index, removeProductHandle, setNameProduct, setColorProduct, setSizeProduct, setQuantityProduct }) {
+    const [nameProductState, setNameProductState] = useState([]);
+    const [colorProductState, setColorProductState] = useState([]);
+    const [sizeProductState, setSizeProductState] = useState([]);
+    const [quantityProductState, setQuantityProductState] = useState([]);
+
+    const handleNameProduct = (e) => {
+        setNameProductState(e.target.value);
+        setNameProduct(prevNameProduct => {
+            prevNameProduct[index] = e.target.value;
+            return prevNameProduct;
+        })
+    }
+    const handleColorProduct = (e) => {
+        setColorProductState(e.target.value);
+        setColorProduct(prevColorProduct => {
+            prevColorProduct[index] = e.target.value;
+            return prevColorProduct;
+        })
+    }
+    const handleSizeProduct = (e) => {
+        setSizeProductState(e.target.value);
+        setSizeProduct(prevSizeProduct => {
+            prevSizeProduct[index] = e.target.value;
+            return prevSizeProduct;
+        })
+    }
+    const handleQuantityProduct = (e) => {
+        setQuantityProductState(e.target.value);
+        setQuantityProduct(prevQuantityProduct => {
+            prevQuantityProduct[index] = e.target.value;
+            return prevQuantityProduct;
+        })
+    }
+
+
     return (
         < tr className="odd">
             <input type="hidden" name="id_product[]" />
             <td>
-                {/* <p>{index}</p> */}
+    
                 <input type="text"
                     className="form-control form-control-solid"
-                    onChange={(e) => setNameProduct(e.target.value)}
+                    onChange={handleNameProduct}
                 />
             </td>
             <td>
                 <input type="text"
                     className="form-control form-control-solid"
-                    onChange={(e) => setPriceProduct(e.target.value)}
+                    onChange={handleColorProduct}
                 />
             </td>
             <td>
                 <select
                     className="form-control form-control-lg form-control-solid"
-                    onChange={(e) => setSizeProduct(e.target.value)}
+                    onChange={handleSizeProduct}
                 >
                     <option value="0">Choose</option>
                     <option value="S">S</option>
@@ -31,7 +68,7 @@ function Product({ index, removeProductHandle, setNameProduct, setPriceProduct, 
             <td>
                 <input type="number"
                     className="form-control form-control-lg form-control-solid"
-                    onChange={(e) => setQuantityProduct(e.target.value)}
+                    onChange={handleQuantityProduct}
                 />
             </td>
             <td className="text-end">
