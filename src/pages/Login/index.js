@@ -36,7 +36,7 @@ function Login({ setToken }) {
         setToken(token);
     }
     const login = (
-        <div className="login-wrapper">
+        <div className="login-wrapper" >
             <h1>Please Log In</h1>
             <form onSubmit={handleSubmit}>
                 {/* create csrf token  */}

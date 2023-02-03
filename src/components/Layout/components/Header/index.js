@@ -40,7 +40,7 @@ function Header() {
             <div className="toolbar">
                 <div className="container-fluid py-6 py-lg-0 d-flex flex-column flex-lg-row align-items-lg-stretch justify-content-lg-between">
                     <div className="page-title d-flex flex-column me-5">
-                        <h1 className="d-flex flex-column text-dark fw-bolder fs-3 mb-0">Order</h1>
+                        <h1 className="d-flex flex-column text-dark fw-bolder fs-3 mb-0">User</h1>
                         <ul className="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
                             <li className="breadcrumb-item text-muted">
                                 <Link to={'/'} className="text-muted text-hover-primary">Home</Link>

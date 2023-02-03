@@ -1,18 +1,27 @@
 import axios from "axios";
-import React from "react";
+import React,{useState} from "react";
 import ActionsDropdown from "~/components/Actions/actions.js"
+import useToken from "~/components/Layout/components/Api/useToken";
+import Modal from "~/components/Layout/components/Modal";
 
 
 function User({ dataId }) {
     const [users, setUsers] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
+    const [openmodal, setOpenmodal] = useState(false);
+    const [title, setTitle] = useState("");
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const openModalAddHandler = () => {
+        setTitle("Add User");
+        setOpenmodal(true);
+    };
     const option = {
         method: "GET",
         url: "https://intern_project.minhhoangjsc.io/api/users",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 53|C7G7awqZOjVY0uE7mZo6Qn713L6ciLAVxGZclQAJ",
+            "Authorization": "Bearer " + useToken().token,
         },
     };
     React.useEffect(() => {
@@ -30,7 +39,7 @@ function User({ dataId }) {
             });
        }
          data();
-    }, []);
+    }, [openmodal, dropdownOpen]);
     if (loading) return "Loading...";
     if (error) return "Error!";
     const data = users.map((user) => (
@@ -38,9 +47,7 @@ function User({ dataId }) {
             <td className="text-center">{user.id}</td>
             <td className="text-center">{user.name}</td>
             <td className="text-center text-break">{user.email}</td>
-<td>
-  <ActionsDropdown id= {user.id} />
-</td>
+            <ActionsDropdown id= {user.id} setDropdownOpen={setDropdownOpen}/>
         </tr>
     ));
     const user = <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -61,13 +68,13 @@ function User({ dataId }) {
                                     </svg>
                                 </span>
                                 <input type="text" data-kt-customer-table-filter="search"
-                                    className="form-control form-control-solid w-250px ps-15" placeholder="Search Orders" />
+                                    className="form-control form-control-solid w-250px ps-15" placeholder="Search Users" />
                             </div>
                         </div>
                         <div className="card-toolbar">
                             <div className="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             
-                                <button type="button" className="btn btn-primary btn-add" onClick={openModalAddHandler}>Add Order</button>
+                                <button type="button" className="btn btn-primary btn-add" onClick={openModalAddHandler}>Add User</button>
 
                             </div>
                             <div className="d-flex justify-content-end align-items-center d-none"

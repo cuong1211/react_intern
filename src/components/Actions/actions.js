@@ -4,11 +4,17 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
-const ActionsDropdown = ({ onDelete, id, onDataChange  }) => {
+const ActionsDropdown = ({ onDelete, id, onDataChange , setDropdownOpen}) => {
   const { t } = useTranslation();
   const [data, setData] = useState([]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const [dropdownOpenState, setDropdownOpenState] = useState(false);
+  const toggle = () => {
+    setDropdownOpenState(prevState => !prevState)
+    const DropdownHandle =() => {
+        setDropdownOpen(prevState => !prevState);
+    }
+  };
+
   const handleDelete = async () => {
     try {
 
@@ -26,6 +32,11 @@ const ActionsDropdown = ({ onDelete, id, onDataChange  }) => {
         axios.request(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));
+          const DropdownHandle =() => {
+            setDropdownOpen(prevState => !prevState);
+           };
+           DropdownHandle();
+
         })
         .catch(function (error) {
           console.log(error);
@@ -37,14 +48,14 @@ const ActionsDropdown = ({ onDelete, id, onDataChange  }) => {
   };
 
   return (
-    <td className="text-end">
-      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle className="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+    <td className="text-center">
+      <Dropdown isOpen={dropdownOpenState} toggle={toggle}>
+        <DropdownToggle className="btn btn-sm btn-light btn-active-light-primary" >
           {t("Actions")}
         </DropdownToggle>
-        <DropdownMenu className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+        <DropdownMenu className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" >
           <DropdownItem tag={Link} to="/view">
-            {t("View")}
+            {t("Edit")}
           </DropdownItem>
           <DropdownItem onClick={handleDelete}>{t("Delete")}</DropdownItem>
         </DropdownMenu>
