@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import useToken from "~/components/Layout/components/Api/useToken";
 import Modal from "~/components/Layout/components/Modal";
+import './order.css'
 
 
 function Order() {
@@ -11,7 +12,7 @@ function Order() {
     const [openmodal, setOpenmodal] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     const [title, setTitle] = useState("");
-    
+
     const openModalAddHandler = () => {
         setTitle("Add Order");
         setOpenmodal(true);
@@ -21,7 +22,15 @@ function Order() {
         setOpenmodal(true);
     };
     const dropdownHandler = () => {
-        setDropdown(!dropdown);
+        //get element
+        const firstAction = document.querySelector(".dropdown");
+        console.log(firstAction);
+        // add class active
+        firstAction.classList.toggle("active")
+
+
+    ;
+        
     };
     const option = {
         method: "GET",
@@ -73,7 +82,7 @@ function Order() {
             </td>
             <td className="text-center">{order.price}</td>
             <td className="text-end">
-                <a className="btn btn-light btn-active-light-primary btn-sm" onClick={dropdownHandler}>
+                <a className="btn btn-light btn-active-light-primary btn-sm actions" onClick={dropdownHandler}>
                     Actions
                     <span className="svg-icon svg-icon-5 m-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -84,23 +93,20 @@ function Order() {
                         </svg>
                     </span>
                 </a>
-                {
-                    dropdown &&
-                        (
-                            <div className="">
-                                <div className="menu-item px-3" onClick={openModalEditHandler}>
-                                    <span className="menu-link px-3 btn-edit">
-                                        Edit
-                                    </span>
-                                </div>
-                                <div className="menu-item px-3">
-                                    <span className="menu-link px-3 btn-delete">
-                                        Delete
-                                    </span>
-                                </div>
-                            </div>
-                        )
-                }
+
+                <div className="dropdown active">
+                    <div className="menu-item px-3" onClick={openModalEditHandler}>
+                        <span className="menu-link px-3 btn-edit">
+                            Edit
+                        </span>
+                    </div>
+                    <div className="menu-item px-3">
+                        <span className="menu-link px-3 btn-delete">
+                            Delete
+                        </span>
+                    </div>
+                </div>
+
             </td>
         </tr >
     ));
@@ -127,7 +133,7 @@ function Order() {
                         </div>
                         <div className="card-toolbar">
                             <div className="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            
+
                                 <button type="button" className="btn btn-primary btn-add" onClick={openModalAddHandler}>Add Order</button>
 
                             </div>

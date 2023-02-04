@@ -8,7 +8,7 @@ import { useEffect, useState, Fragment } from 'react';
 import useToken from '../Api/useToken';
 import './modal.css'
 
-async function CreateProduct(data, token) {
+async function CreateProduct(data, token, closeModal) {
   const options = {
     url: 'https://intern_project.minhhoangjsc.io/api/orders',
     method: 'POST',
@@ -20,8 +20,10 @@ async function CreateProduct(data, token) {
   };
   return axios.request(options)
     .then(response => {
-      console.log(response.data);
-      return response.data;
+      function closeModalHandler() {
+        closeModal(false);
+      }
+      closeModalHandler();
     }
     )
     .catch(err => {
@@ -51,7 +53,7 @@ function Modal({ title, closeModal }) {
       data.append(`size_product[]`, sizeProduct[index]);
       data.append(`quantity_product[]`, quantityProduct[index]);
     });
-    await CreateProduct(data, token)
+    await CreateProduct(data, token, closeModal)
   }
   const removeProductHandle = (index) => {
     setProduct(prevProduct => prevProduct.filter(item => item.props.index !== index));
