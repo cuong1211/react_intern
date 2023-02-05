@@ -91,7 +91,7 @@ function Modal({ title, closeModal }) {
               </FormGroup>
             </div>
           </div>
-          <div className="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll">
+          <div className="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" style={{maxHeight: 500 + 'px'}}>
             <div className="card card-flush pt-3 mb-5 mb-lg-10" id="product">
               <div className="card-header">
                 <div className="card-title">

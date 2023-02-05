@@ -1,12 +1,12 @@
 
 import { Link } from 'react-router-dom';
-
+import routes from '~/config/routes';
 // const cx = classNameNames.bind(styles);
 function Header() {
     const header = (
         <div id="kt_header" className="header align-items-stretch">
             <div className="header-brand">
-                <Link to="/">
+                <Link to={routes.home}>
                     <img alt="Logo" src="assets/media/logos/logo-1-dark.svg" className="h-25px h-lg-25px" />
                 </Link>
                 <div id="kt_aside_toggle" className="btn btn-icon w-auto px-0 btn-active-color-primary aside-minimize" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">

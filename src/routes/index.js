@@ -1,10 +1,11 @@
 import Home from "~/pages/Home";
 import Order from "~/pages/Order";
+import routes from "~/config/routes";
 
 
 const publicRoutes = [
-    { path: "/", element: <Home />,name: "Home"},
-    { path: "/Order", element: <Order /> ,name: "Order"},
+    { path: routes.home, element: <Home />,name: "Home"},
+    { path: routes.order, element: <Order /> ,name: "Order"},
 ]
 
 const privateRoutes = [

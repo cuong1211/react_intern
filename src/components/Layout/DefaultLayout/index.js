@@ -42,7 +42,7 @@ function DefaultLayout({ children, route }) {
         <div className="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             <Header />
             <div className="container">
-                <SideBar route={route} activeItemId={activeItemId} pageHandle={pageHandle}/>
+                <SideBar route={route}/>
                 <div className="content">
                     {children}
                 </div>

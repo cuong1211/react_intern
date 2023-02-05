@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 function SideBar({ route }) {
-    console.log(route);
+    const [active, setActive] = useState(false);
     const sidebar = (
         <div id="kt_aside" className="aside" data-kt-drawer="true" data-kt-drawer-name="aside"
             data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
@@ -24,9 +25,7 @@ function SideBar({ route }) {
                                 </div>
                             </div>
                             <div className="me-n2">
-                                <a className="btn btn-icon btn-sm btn-active-color-primary mt-n2"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
-                                    data-kt-menu-overflow="true">
+                                <a className="btn btn-icon btn-sm btn-active-color-primary mt-n2" onClick={()=> setActive(!active)}>
                                     <span className="svg-icon svg-icon-muted svg-icon-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none">
@@ -39,202 +38,37 @@ function SideBar({ route }) {
                                         </svg>
                                     </span>
                                 </a>
-                                <div className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
-                                    data-kt-menu="true">
-                                    <div className="menu-item px-3">
-                                        <div className="menu-content d-flex align-items-center px-3">
-                                            <div className="symbol symbol-50px me-5">
-                                                <img alt="Logo" src="assets/media/avatars/150-26.jpg" />
-                                            </div>
-                                            <div className="d-flex flex-column">
-                                                <div className="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                                    <span
-                                                        className="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span>
+                                {/* dropmenu */}
+                                { active &&
+                                    <div className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px">
+                                        <div className="menu-item px-3">
+                                            <div className="menu-content d-flex align-items-center px-3">
+                                                <div className="symbol symbol-50px me-5">
+                                                    <img alt="Logo" src="assets/media/avatars/150-26.jpg" />
                                                 </div>
-                                                <a
-                                                    className="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div className="separator my-2"></div>
-                                    <div className="menu-item px-5">
-                                        <a href="../../demo8/dist/account/overview.html" className="menu-link px-5">My Profile</a>
-                                    </div>
-                                    <div className="menu-item px-5">
-                                        <a href="../../demo8/dist/pages/projects/list.html" className="menu-link px-5">
-                                            <span className="menu-text">My Projects</span>
-                                            <span className="menu-badge">
-                                                <span className="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
-                                            </span>
-                                        </a>
-                                    </div>
-
-
-                                    <div className="menu-item px-5" data-kt-menu-trigger="hover"
-                                        data-kt-menu-placement="right-start">
-                                        <a className="menu-link px-5">
-                                            <span className="menu-title">My Subscription</span>
-                                            <span className="menu-arrow"></span>
-                                        </a>
-
-                                        <div className="menu-sub menu-sub-dropdown w-175px py-4">
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/referrals.html"
-                                                    className="menu-link px-5">Referrals</a>
-                                            </div>
-
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/billing.html"
-                                                    className="menu-link px-5">Billing</a>
-                                            </div>
-
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/statements.html"
-                                                    className="menu-link px-5">Payments</a>
-                                            </div>
-
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/statements.html"
-                                                    className="menu-link d-flex flex-stack px-5">Statements
-                                                    <i className="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                                        title="View your statements"></i></a>
-                                            </div>
-
-
-                                            <div className="separator my-2"></div>
-
-
-                                            <div className="menu-item px-3">
-                                                <div className="menu-content px-3">
-                                                    <label className="form-check form-switch form-check-custom form-check-solid">
-                                                        <input className="form-check-input w-30px h-20px" type="checkbox"
-                                                            value="1" checked="checked" name="notifications" />
-                                                        <span className="form-check-label text-muted fs-7">Notifications</span>
-                                                    </label>
+                                                <div className="d-flex flex-column">
+                                                    <div className="fw-bolder d-flex align-items-center fs-5">Max Smith
+                                                        <span
+                                                            className="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span>
+                                                    </div>
+                                                    <a
+                                                        className="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
-
-                                    </div>
-
-                                    <div className="menu-item px-5">
-                                        <a href="../../demo8/dist/account/statements.html" className="menu-link px-5">My
-                                            Statements</a>
-                                    </div>
-
-
-                                    <div className="separator my-2"></div>
-
-
-                                    <div className="menu-item px-5" data-kt-menu-trigger="hover"
-                                        data-kt-menu-placement="right-start">
-                                        <a className="menu-link px-5">
-                                            <span className="menu-title position-relative">Language
-                                                <span
-                                                    className="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                                                    <img className="w-15px h-15px rounded-1 ms-2"
-                                                        src="assets/media/flags/united-states.svg"
-                                                        alt="" /></span></span>
-                                        </a>
-
-                                        <div className="menu-sub menu-sub-dropdown w-175px py-4">
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                    className="menu-link d-flex px-5 active">
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img className="rounded-1" src="assets/media/flags/united-states.svg"
-                                                            alt="" />
-                                                    </span>English</a>
-                                            </div>
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                    className="menu-link d-flex px-5">
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img className="rounded-1" src="assets/media/flags/spain.svg"
-                                                            alt="" />
-                                                    </span>Spanish</a>
-                                            </div>
-
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                    className="menu-link d-flex px-5">
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img className="rounded-1" src="assets/media/flags/germany.svg"
-                                                            alt="" />
-                                                    </span>German</a>
-                                            </div>
-
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                    className="menu-link d-flex px-5">
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img className="rounded-1" src="assets/media/flags/japan.svg"
-                                                            alt="" />
-                                                    </span>Japanese</a>
-                                            </div>
-                                            -
-
-                                            <div className="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                    className="menu-link d-flex px-5">
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img className="rounded-1" src="assets/media/flags/france.svg"
-                                                            alt="" />
-                                                    </span>French</a>
-                                            </div>
-                                            -
+                                        <div className="menu-item px-5 my-1">
+                                            <a href="../../demo8/dist/account/settings.html" className="menu-link px-5">Account
+                                                Settings</a>
                                         </div>
-
-                                    </div>
-                                    -
-
-                                    <div className="menu-item px-5 my-1">
-                                        <a href="../../demo8/dist/account/settings.html" className="menu-link px-5">Account
-                                            Settings</a>
-                                    </div>
-                                    -
-
-                                    <div className="menu-item px-5">
-                                        <a href="{{ route('logout') }}" className="menu-link px-5">Sign Out</a>
-                                    </div>
-                                    -
-
-                                    <div className="separator my-2"></div>
-
-
-                                    <div className="menu-item px-5">
-                                        <div className="menu-content px-5">
-                                            <label
-                                                className="form-check form-switch form-check-custom form-check-solid pulse pulse-success"
-                                                htmlFor="kt_user_menu_dark_mode_toggle">
-                                                <input className="form-check-input w-30px h-20px" type="checkbox" value="1"
-                                                    name="mode" id="kt_user_menu_dark_mode_toggle"
-                                                    data-kt-url="../../demo8/dist/index.html" />
-                                                <span className="pulse-ring ms-n1"></span>
-                                                <span className="form-check-label text-gray-600 fs-7">Dark Mode</span>
-                                            </label>
+                                        <div className="menu-item px-5">
+                                            <a href="{{ route('logout') }}" className="menu-link px-5">Sign Out</a>
                                         </div>
                                     </div>
-
-                                </div>
-
-
+                                }
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
 
 
@@ -860,7 +694,7 @@ function SideBar({ route }) {
                                 <div data-kt-search-element="empty" className="text-center d-none">
 
                                     <div className="pt-10 pb-10">
-                                        :Svg Icon | path: icons/duotune/f
+
                                         <span className="svg-icon svg-icon-4x opacity-50">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
@@ -900,75 +734,53 @@ function SideBar({ route }) {
                                 <div className="mb-5">
 
                                     <div className="nav-group nav-group-fluid">
-
                                         <label>
                                             <input type="radio" className="btn-check" name="type" value="has"
                                                 checked="checked" />
                                             <span className="btn btn-sm btn-color-muted btn-active btn-active-primary">All</span>
                                         </label>
-
-
                                         <label>
                                             <input type="radio" className="btn-check" name="type" value="users" />
                                             <span
                                                 className="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Users</span>
                                         </label>
-
-
                                         <label>
                                             <input type="radio" className="btn-check" name="type" value="orders" />
                                             <span
                                                 className="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Orders</span>
                                         </label>
-
-
                                         <label>
                                             <input type="radio" className="btn-check" name="type" value="projects" />
                                             <span
                                                 className="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Projects</span>
                                         </label>
-
                                     </div>
-
                                 </div>
-
                                 <div className="mb-5">
                                     <input type="text" name="assignedto"
                                         className="form-control form-control-sm form-control-solid" placeholder="Assigned to"
                                         value="" />
                                 </div>
-
-
                                 <div className="mb-5">
                                     <input type="text" name="collaborators"
                                         className="form-control form-control-sm form-control-solid" placeholder="Collaborators"
                                         value="" />
                                 </div>
-
-
                                 <div className="mb-5">
-
                                     <div className="nav-group nav-group-fluid">
-
                                         <label>
                                             <input type="radio" className="btn-check" name="attachment" value="has"
                                                 checked="checked" />
                                             <span className="btn btn-sm btn-color-muted btn-active btn-active-primary">Has
                                                 attachment</span>
                                         </label>
-
-
                                         <label>
                                             <input type="radio" className="btn-check" name="attachment" value="any" />
                                             <span
                                                 className="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Any</span>
                                         </label>
-
                                     </div>
-
                                 </div>
-
-
                                 <div className="mb-5">
                                     <select name="timezone" aria-label="Select a Timezone" data-control="select2"
                                         data-placeholder="date_period" className="form-select form-select-sm form-select-solid">
@@ -978,17 +790,12 @@ function SideBar({ route }) {
                                         <option value="on">On</option>
                                     </select>
                                 </div>
-
-
                                 <div className="row mb-8">
-
                                     <div className="col-6">
                                         <input type="number" name="date_number"
                                             className="form-control form-control-sm form-control-solid" placeholder="Lenght"
                                             value="" />
                                     </div>
-
-
                                     <div className="col-6">
                                         <select name="date_typer" aria-label="Select a Timezone" data-control="select2"
                                             data-placeholder="Period" className="form-select form-select-sm form-select-solid">
@@ -1000,8 +807,6 @@ function SideBar({ route }) {
                                     </div>
 
                                 </div>
-
-                                -
                                 <div className="d-flex justify-content-end">
                                     <button type="reset"
                                         className="btn btn-sm btn-light fw-bolder btn-active-light-primary me-2"
@@ -1010,7 +815,6 @@ function SideBar({ route }) {
                                         className="btn btn-sm fw-bolder btn-primary"
                                         data-kt-search-element="advanced-options-form-search">Search</a>
                                 </div>
-
                             </form>
 
 
@@ -1089,10 +893,10 @@ function SideBar({ route }) {
                     data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="5px">
 
                     <div className="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500  menu-sub-accordio"
-                        id="#kt_aside_menu" data-kt-menu="true">
+                        id="kt_aside_menu" >
                         {route.map((route, index) => (
                             <div className="menu-item" key={index} >
-                                <NavLink to={route.path} className="menu-link" activeClassName="active">
+                                <NavLink to={route.path} className="menu-link">
                                     <span className="menu-icon">
                                         <span className="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -37,7 +37,7 @@ function Product({ index, removeProductHandle, setNameProduct, setColorProduct, 
 
 
     return (
-        < tr className="odd">
+        <tr className="odd">
             <input type="hidden" name="id_product[]" />
             <td>
     
