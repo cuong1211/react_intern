@@ -5,8 +5,14 @@ import SideBar from "~/components/Layout/components/Sidebar";
 import { useEffect, useState } from 'react';
 // import Children from "react";
 
-function DefaultLayout({ children }) {
+function DefaultLayout({ children, route }) {
     const [scripts, setScripts] = useState([]);
+    const [activeItemId, setActiveItemId] = useState(null);
+
+    const pageHandle = (itemId) => {
+        setActiveItemId(prevId => prevId === itemId ? null : itemId);
+    };
+
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "assets/plugins/global/plugins.bundle.js";
@@ -36,7 +42,7 @@ function DefaultLayout({ children }) {
         <div className="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             <Header />
             <div className="container">
-                <SideBar />
+                <SideBar route={route} activeItemId={activeItemId} pageHandle={pageHandle}/>
                 <div className="content">
                     {children}
                 </div>

@@ -1,115 +1,33 @@
-import axios from "axios";
-import { useState, useEffect, Fragment } from "react";
-import useToken from "~/components/Layout/components/Api/useToken";
-import Modal from "~/components/Layout/components/Modal";
-import './order.css'
+import { useState, useEffect } from "react";
 
+import Modal from "~/components/Modal";
+import './order.css'
+import { GetList } from "~/services/order/orderServices";
+import { Button } from 'reactstrap';
+import Data from "~/components/Data/Order";
 
 function Order() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [openmodal, setOpenmodal] = useState(false);
-    const [dropdown, setDropdown] = useState(false);
     const [title, setTitle] = useState("");
 
     const openModalAddHandler = () => {
         setTitle("Add Order");
         setOpenmodal(true);
     };
-    const openModalEditHandler = () => {
-        setTitle("Edit Order");
-        setOpenmodal(true);
-    };
-    const dropdownHandler = () => {
-        //get element
-        const firstAction = document.querySelector(".dropdown");
-        console.log(firstAction);
-        // add class active
-        firstAction.classList.toggle("active")
 
-
-    ;
-        
-    };
-    const option = {
-        method: "GET",
-        url: "https://intern_project.minhhoangjsc.io/api/orders",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + useToken().token,
-        },
-    };
     useEffect(() => {
-        axios.request(option)
-            .then((response) => {
-                setOrders(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-                setLoading(false);
-            });
+        setLoading(true);
+        async function GetData() {
+            setLoading(true);
+            const result = await GetList();
+            setOrders(result);
+            setLoading(false);
+        }
+        GetData()
     }, []);
     if (loading) return "Loading...";
-    if (error) return "Error!";
-    const data = orders.map((order) => (
-        <tr key={order.id}>
-            <td className="text-center">{order.id}</td>
-            <td className="text-center">{order.name}</td>
-            <td className="text-center text-break">{order.description}</td>
-            <td className="text-bold text-center">
-                {order.product.map((product) => (
-                    <Fragment key={product.id}>
-                        <div>
-                            {product.name}
-                        </div>
-                        <hr />
-
-                    </Fragment>
-                ))}
-            </td>
-
-            <td className="text-center">
-                {order.product.map((product) => (
-                    <Fragment key={product.id}>
-                        <div>
-                            {product.quantity}
-                        </div>
-                        <hr />
-                    </Fragment>
-                ))}
-            </td>
-            <td className="text-center">{order.price}</td>
-            <td className="text-end">
-                <a className="btn btn-light btn-active-light-primary btn-sm actions" onClick={dropdownHandler}>
-                    Actions
-                    <span className="svg-icon svg-icon-5 m-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                                <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                <path d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z" fill="#000000" fillRule="nonzero" transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)"></path>
-                            </g>
-                        </svg>
-                    </span>
-                </a>
-
-                <div className="dropdown active">
-                    <div className="menu-item px-3" onClick={openModalEditHandler}>
-                        <span className="menu-link px-3 btn-edit">
-                            Edit
-                        </span>
-                    </div>
-                    <div className="menu-item px-3">
-                        <span className="menu-link px-3 btn-delete">
-                            Delete
-                        </span>
-                    </div>
-                </div>
-
-            </td>
-        </tr >
-    ));
     const order = (<div className="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div className="post d-flex flex-column-fluid" id="kt_post">
             <div id="kt_content_container" className="container-xxl">
@@ -133,9 +51,7 @@ function Order() {
                         </div>
                         <div className="card-toolbar">
                             <div className="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-
-                                <button type="button" className="btn btn-primary btn-add" onClick={openModalAddHandler}>Add Order</button>
-
+                                <Button color="primary" onClick={openModalAddHandler}>Add Order</Button>
                             </div>
                             <div className="d-flex justify-content-end align-items-center d-none"
                                 data-kt-customer-table-toolbar="selected">
@@ -148,27 +64,13 @@ function Order() {
                         </div>
                     </div>
                     <div className="card-body pt-0">
-                        <table className="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-                            <thead>
-                                <tr className="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th className="m-w-125px text-center">STT</th>
-                                    <th className="m-w-125px text-center">Name</th>
-                                    <th className="max-w-125px text-center">Description</th>
-                                    <th className="m-w-125px text-center">Product</th>
-                                    <th className="m-w-125px text-center">Quantity</th>
-                                    <th className="m-w-125px text-center">Price</th>
-                                    <th className="text-end m-w-70px text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="fw-bold text-gray-600">
-                                {data}
-                            </tbody>
-                        </table>
+                        <Data data={orders} setTitle={setTitle} setOpenmodal={setOpenmodal} />
                     </div>
                 </div>
             </div>
         </div>
         {openmodal && <Modal title={title} closeModal={setOpenmodal} />}
+        {/* {<PaginatedItems itemsPerPage={4} />} */}
     </div>
     )
 

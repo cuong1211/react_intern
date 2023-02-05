@@ -22,7 +22,7 @@ function App() {
             }
             return (
               <Route key={route.path} path={route.path} element={
-                <Layout>
+                <Layout route={publicRoutes}>
                   {route.element}
                 </Layout>
               } />
