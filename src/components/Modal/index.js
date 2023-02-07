@@ -2,8 +2,8 @@ import Refresh from './Button/refresh';
 import Reset from './Button/reset';
 import Submit from './Button/submit';
 import Product from './Product';
-import { useState, Fragment } from 'react';
-import { Create } from '~/services/order/orderServices';
+import { useState, Fragment ,useEffect } from 'react';
+import { Create, GetOrder } from '~/services/order/orderServices';
 import './modal.css'
 import { Modal as Modals, ModalHeader, ModalBody, Form, Label, Input, FormGroup } from 'reactstrap';
 
@@ -16,7 +16,8 @@ async function CreateProduct(data, closeModal) {
   //   console.log(response);
   // }
 }
-function Modal({ title, closeModal }) {
+function Modal({ title, closeModal ,id }) {
+  const [data, setData] = useState([]);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -24,7 +25,17 @@ function Modal({ title, closeModal }) {
   const [colorProduct, setColorProduct] = useState([]);
   const [sizeProduct, setSizeProduct] = useState([]);
   const [quantityProduct, setQuantityProduct] = useState([]);
+  if(title == "Edit Order"){
 
+    useEffect(() => {
+      async function GetData() {
+        const result = await GetOrder(id);
+        console.log(result);
+        setData(result);
+      }
+      GetData()
+    }, [id]);
+  }
   const HandleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -79,11 +90,11 @@ function Modal({ title, closeModal }) {
             <div className="card-body pt-0">
               <FormGroup>
                 <Label className="required fs-6 fw-bold mb-2">Name</Label>
-                <Input type="text" className="form-control form-control-solid" onChange={e => setName(e.target.value)} />
+                <Input type="text" className="form-control form-control-solid" onChange={e => setName(e.target.value)} value={data.name}/>
               </FormGroup>
               <FormGroup>
                 <Label className="fs-6 fw-bold mb-2">Description</Label>
-                <Input type="textarea" className="form-control form-control-solid" rows="3" name="description" placeholder="Type Description" onChange={e => setDescription(e.target.value)}/>
+                <Input type="textarea" className="form-control form-control-solid" rows="3" name="description" placeholder="Type Description" onChange={e => setDescription(e.target.value)} />
               </FormGroup>
               <FormGroup>
                 <Label className="required fs-6 fw-bold mb-2">Price</Label>
@@ -91,7 +102,7 @@ function Modal({ title, closeModal }) {
               </FormGroup>
             </div>
           </div>
-          <div className="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" style={{maxHeight: 500 + 'px'}}>
+          <div className="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" style={{ maxHeight: 500 + 'px' }}>
             <div className="card card-flush pt-3 mb-5 mb-lg-10" id="product">
               <div className="card-header">
                 <div className="card-title">

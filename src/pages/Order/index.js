@@ -11,7 +11,8 @@ function Order() {
     const [loading, setLoading] = useState(true);
     const [openmodal, setOpenmodal] = useState(false);
     const [title, setTitle] = useState("");
-
+    const [id, setId] = useState();
+    console.log(id)
     const openModalAddHandler = () => {
         setTitle("Add Order");
         setOpenmodal(true);
@@ -64,12 +65,12 @@ function Order() {
                         </div>
                     </div>
                     <div className="card-body pt-0">
-                        <Data data={orders} setTitle={setTitle} setOpenmodal={setOpenmodal} />
+                        <Data data={orders} setTitle={setTitle} setOpenmodal={setOpenmodal} setId={setId}/>
                     </div>
                 </div>
             </div>
         </div>
-        {openmodal && <Modal title={title} closeModal={setOpenmodal} />}
+        {openmodal && <Modal title={title} closeModal={setOpenmodal} id={id} />}
         {/* {<PaginatedItems itemsPerPage={4} />} */}
     </div>
     )

@@ -4,13 +4,14 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import axios from 'axios';
 
 
-function ActionDropDown({ setOpenmodal, title }) {
+function ActionDropDown({ setOpenmodal, title, id,setId}) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [data, setData] = useState([]);
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const openModalEditHandler = () => {
         title("Edit Order");
         setOpenmodal(true);
+        setId(id);
     };
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
