@@ -45,3 +45,32 @@ export const GetOrder = async(id) =>{
         console.log(error);
     }
 }
+
+export const Update = async(data, id) => {
+    try{
+        const response = await request.put(`orders/${id}`,data,{
+            headers: {
+                'Accept': 'application/json',
+                "Authorization": "Bearer " + token,
+            }
+        });
+        return response;
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+export const Delete = async(id) => {
+    try{
+        const response = await request.destroy(`orders/${id}`,{
+            headers: {
+                'Accept': 'application/json',
+                "Authorization": "Bearer " + token,
+            }
+        });
+        return response;
+    }
+    catch(error){
+        console.log(error);
+    }
+}

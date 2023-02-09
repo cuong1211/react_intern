@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import ActionDropDown from "~/components/Dropdown";
 import ReactPaginate from 'react-paginate';
 function Data(props) {
-    const { data, setTitle, setOpenmodal ,setId} = props;
+    const { data, setTitle, setOpenmodal ,setId, GetData} = props;
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0);
     const [currentItems, setCurrentItems] = useState([]);
@@ -62,7 +62,7 @@ function Data(props) {
                             <td className="text-center">{order.price}</td>
 
                             <td className="text-center">
-                                {<ActionDropDown title={setTitle} setOpenmodal={setOpenmodal} id={order.id} setId={setId}></ActionDropDown>}
+                                {<ActionDropDown title={setTitle} setOpenmodal={setOpenmodal} id={order.id} setId={setId} GetData={GetData}></ActionDropDown>}
                             </td>
                         </tr >
                     ))}

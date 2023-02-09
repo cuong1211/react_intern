@@ -12,7 +12,6 @@ function Order() {
     const [openmodal, setOpenmodal] = useState(false);
     const [title, setTitle] = useState("");
     const [id, setId] = useState();
-    console.log(id)
     const openModalAddHandler = () => {
         setTitle("Add Order");
         setOpenmodal(true);
@@ -20,14 +19,14 @@ function Order() {
 
     useEffect(() => {
         setLoading(true);
-        async function GetData() {
-            setLoading(true);
-            const result = await GetList();
-            setOrders(result);
-            setLoading(false);
-        }
         GetData()
     }, []);
+    async function GetData() {
+        setLoading(true);
+        const result = await GetList();
+        setOrders(result);
+        setLoading(false);
+    }
     if (loading) return "Loading...";
     const order = (<div className="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -65,12 +64,12 @@ function Order() {
                         </div>
                     </div>
                     <div className="card-body pt-0">
-                        <Data data={orders} setTitle={setTitle} setOpenmodal={setOpenmodal} setId={setId}/>
+                        <Data data={orders} setTitle={setTitle} setOpenmodal={setOpenmodal} setId={setId} GetData={GetData}/>
                     </div>
                 </div>
             </div>
         </div>
-        {openmodal && <Modal title={title} closeModal={setOpenmodal} id={id} />}
+        {openmodal && <Modal title={title} closeModal={setOpenmodal} id={id} GetData={GetData}/>}
         {/* {<PaginatedItems itemsPerPage={4} />} */}
     </div>
     )

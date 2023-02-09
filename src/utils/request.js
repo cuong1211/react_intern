@@ -13,7 +13,7 @@ export const post = async(path, data, option = {}) => {
     return response;
 }
 export const put = async(path, data, option = {}) => {
-    const response = await request.post(path, data, option);
+    const response = await request.put(path, data, option);
     return response.data;
 }
 export const destroy = async(path, option = {}) => {

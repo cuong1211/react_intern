@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import axios from 'axios';
+import { Delete } from '~/services/order/orderServices';
 
 
-function ActionDropDown({ setOpenmodal, title, id,setId}) {
+function ActionDropDown({ setOpenmodal, title, id,setId, GetData}) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [data, setData] = useState([]);
     const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -13,6 +14,17 @@ function ActionDropDown({ setOpenmodal, title, id,setId}) {
         setOpenmodal(true);
         setId(id);
     };
+    const deleteHandle = async () => {
+        const response = await Delete(id);
+        if (response.status === "success") {
+            GetData()
+        }
+        else {
+            console.log(response);
+        }
+
+    }
+
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle caret className="btn btn-sm btn-light btn-active-light-primary">
@@ -22,7 +34,7 @@ function ActionDropDown({ setOpenmodal, title, id,setId}) {
                 <DropdownItem onClick={openModalEditHandler}>
                     Edit 
                 </DropdownItem>
-                <DropdownItem>
+                <DropdownItem onClick={deleteHandle}>
                     Delete 
                 </DropdownItem>
             </DropdownMenu>
